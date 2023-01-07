@@ -2,6 +2,9 @@
   "name": "final_project",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "clarifai": "^2.9.0",
     "knex": "^0.15.2",
