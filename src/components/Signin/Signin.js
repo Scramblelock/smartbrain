@@ -18,7 +18,7 @@ class Sigin extends React.Component {
   };
 
   onSubmitSignIn = () => {
-    fetch('https://smartbrain-api.vercel.app/signin', {
+    fetch('https://smartbrain-api.vercel.app/api/signin', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
