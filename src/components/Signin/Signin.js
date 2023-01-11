@@ -20,7 +20,14 @@ class Sigin extends React.Component {
   onSubmitSignIn = () => {
     fetch('https://smartbrain-api.vercel.app/signin', {
       method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE',
+        'Access-Control-Allow-Headers':
+          'Content-Type, Origin, X-Requested-With, Accept, Authorization',
+        'Access-Control-Expose-Headers': '*',
+      },
       body: JSON.stringify({
         email: this.state.signInEmail,
         password: this.state.signInPassword,
