@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Particles from 'react-particles-js';
+import ParticlesBg from 'particles-bg';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
@@ -55,9 +55,9 @@ class App extends Component {
   };
 
   calculateFaceLocation = (data) => {
-    const clarifaiFace =
-      data.outputs[0].data.regions[0].region_info.bounding_box;
-    const image = document.getElementById('inputImage');
+    const clarifaiFace = JSON.parse(data, null, 2).outputs[0].data.regions[0]
+      .region_info.bounding_box;
+    const image = document.getElementById('inputimage');
     const width = Number(image.width);
     const height = Number(image.height);
     return {
@@ -78,14 +78,34 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    fetch('https://smartbrain-api.vercel.app/imageurl', {
-      method: 'post',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        input: this.state.input,
-      }),
-    })
-      .then((response) => response.json())
+    const raw = JSON.stringify({
+      user_app_id: {
+        user_id: 'scramblelock',
+        app_id: 'my-first-application',
+      },
+      inputs: [
+        {
+          data: {
+            image: {
+              url: this.state.input,
+            },
+          },
+        },
+      ],
+    });
+
+    fetch(
+      'https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Key cb094270b136430c8d5a5e4e073c26c0',
+        },
+        body: raw,
+      }
+    )
+      .then((response) => response.text())
       .then((response) => {
         if (response) {
           fetch('https://smartbrain-api.vercel.app/image', {
@@ -98,14 +118,12 @@ class App extends Component {
             .then((response) => response.json())
             .then((count) => {
               this.setState(Object.assign(this.state.user, { entries: count }));
-            })
-            .catch(console.log);
+            });
         }
         this.displayFaceBox(this.calculateFaceLocation(response));
       })
-      .catch((err) => console.log(err));
+      .catch((error) => console.log('error', error));
   };
-
   onRouteChange = (route) => {
     if (route === 'signout') {
       this.setState(initialState);
@@ -119,7 +137,7 @@ class App extends Component {
     const { isSignedIn, imageUrl, route, box } = this.state;
     return (
       <div className='App'>
-        <Particles className='particles' params={particlesOptions} />
+        <ParticlesBg type='circle' bg={true} />
         <Navigation
           isSignedIn={isSignedIn}
           onRouteChange={this.onRouteChange}
