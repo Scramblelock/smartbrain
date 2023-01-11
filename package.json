@@ -8,6 +8,7 @@
   "dependencies": {
     "clarifai": "^2.9.0",
     "knex": "^0.15.2",
+    "particles-bg": "^2.5.5",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-particles-js": "^2.3.0",
