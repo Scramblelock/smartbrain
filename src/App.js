@@ -96,7 +96,7 @@ class App extends Component {
       .then((response) => response.text())
       .then((response) => {
         if (response) {
-          fetch('https://smartbrain-api.vercel.app/image', {
+          fetch('https://smartbrain-api.vercel.app/api/image', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
