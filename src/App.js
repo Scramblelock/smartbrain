@@ -82,21 +82,18 @@ class App extends Component {
       ],
     });
 
-    fetch(
-      'https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs',
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'Key cb094270b136430c8d5a5e4e073c26c0',
-        },
-        body: raw,
-      }
-    )
+    fetch(process.env.CLARIFAI_URL, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Key ${process.env.CLARIFAI_AUTH}`,
+      },
+      body: raw,
+    })
       .then((response) => response.text())
       .then((response) => {
         if (response) {
-          fetch('https://smartbrain-api.vercel.app/api/image', {
+          fetch(`${process.env.SMARTBRAIN_API_URL}/api/image`, {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
