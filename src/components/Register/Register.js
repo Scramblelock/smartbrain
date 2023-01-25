@@ -23,7 +23,7 @@ class Register extends React.Component {
   };
 
   onSubmitSignIn = () => {
-    fetch(`${process.env.SMARTBRAIN_API_URL}/api/register`, {
+    fetch(`${process.env.REACT_APP_SMARTBRAIN_API_URL}/api/register`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',

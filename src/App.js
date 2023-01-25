@@ -82,18 +82,18 @@ class App extends Component {
       ],
     });
 
-    fetch(process.env.CLARIFAI_URL, {
+    fetch(process.env.REACT_APP_CLARIFAI_URL, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        Authorization: `Key ${process.env.CLARIFAI_AUTH}`,
+        Authorization: `Key ${process.env.REACT_APP_CLARIFAI_AUTH}`,
       },
       body: raw,
     })
       .then((response) => response.text())
       .then((response) => {
         if (response) {
-          fetch(`${process.env.SMARTBRAIN_API_URL}/api/image`, {
+          fetch(`${process.env.REACT_APP_SMARTBRAIN_API_URL}/api/image`, {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

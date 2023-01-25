@@ -18,7 +18,7 @@ class Sigin extends React.Component {
   };
 
   onSubmitSignIn = () => {
-    fetch(`${process.env.SMARTBRAIN_API_URL}/api/signin`, {
+    fetch(`${process.env.REACT_APP_SMARTBRAIN_API_URL}/api/signin`, {
       method: 'post',
       headers: {
         'Content-Type': 'application/json',
